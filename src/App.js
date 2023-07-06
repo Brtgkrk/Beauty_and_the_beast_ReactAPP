@@ -44,9 +44,23 @@ function App() {
     }
 
     if (filters.dateOfBirth) {
-      filteredData = filteredData.filter(
-        (employee) => employee.dateOfBirth === filters.dateOfBirth
-      );
+      const filterDate = new Date(filters.dateOfBirth);
+      const filterDay = filterDate.getDate();
+      const filterMonth = filterDate.getMonth() + 1;
+      const filterYear = filterDate.getFullYear();
+
+      filteredData = filteredData.filter((employee) => {
+        const employeeDate = new Date(employee.dateOfBirth);
+        const employeeDay = employeeDate.getDate();
+        const employeeMonth = employeeDate.getMonth() + 1;
+        const employeeYear = employeeDate.getFullYear();
+
+        return (
+          filterDay === employeeMonth &&
+          filterMonth === employeeDay &&
+          filterYear === employeeYear
+        );
+      });
     }
 
     setFilteredEmployees(filteredData);
@@ -60,8 +74,8 @@ function App() {
   const applySorting = () => {
     if (sortConfig.key) {
       const sortedData = [...filteredEmployees].sort((a, b) => {
-        const valueA = a[sortConfig.key];
-        const valueB = b[sortConfig.key];
+        const valueA = sortConfig.key === 'dateOfBirth' ? parseDate(a.dateOfBirth) : a[sortConfig.key];
+        const valueB = sortConfig.key === 'dateOfBirth' ? parseDate(b.dateOfBirth) : b[sortConfig.key];
 
         if (valueA < valueB) {
           return sortConfig.direction === 'asc' ? -1 : 1;
@@ -77,13 +91,23 @@ function App() {
     }
   };
 
+  const parseDate = (dateString) => {
+    const [date, time] = dateString.split(' ');
+    const [day, month, year] = date.split('.');
+    const [hours, minutes] = time.split(':');
+
+    return new Date(year, month - 1, day, hours, minutes);
+  };
+
+
+
   const handleSortChange = (key) => {
     let direction = 'asc';
 
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
       direction = 'desc';
     }
-
+    console.log(`key: ${key} direction: ${direction}`);
     setSortConfig({ key, direction });
   };
 
@@ -103,7 +127,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <FilterForm onFilterChange={handleFilterChange} />
-        <EmployeeTable employees={employees} onSortChange={handleSortChange} />
+        <EmployeeTable employees={employees} sortConfig={sortConfig} onSortChange={handleSortChange} />
         <Pagination
           currentPage={currentPage}
           totalPages={Math.ceil(filteredEmployees.length / pageSize)}

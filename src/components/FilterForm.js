@@ -40,6 +40,10 @@ const FilterForm = ({ onFilterChange }) => {
         selected={dateOfBirthFilter}
         onChange={handleDateOfBirthFilterChange}
         placeholderText="Filtruj po dacie urodzenia"
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
+        dateFormat="dd.MM.yyyy"
       />
     </div>
   );

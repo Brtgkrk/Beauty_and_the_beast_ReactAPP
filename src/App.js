@@ -28,11 +28,24 @@ function App() {
   const applyFilters = () => {
     let filteredData = jsonData;
 
+    if (filters.id) {
+      filteredData = filteredData.filter(
+        (employee) =>
+          employee.id == filters.id
+      );
+    }
+
     if (filters.name) {
       filteredData = filteredData.filter(
         (employee) =>
-          employee.firstName.toLowerCase().includes(filters.name.toLowerCase()) ||
-          employee.lastName.toLowerCase().includes(filters.name.toLowerCase())
+          employee.firstName.toLowerCase().includes(filters.name.toLowerCase())
+      );
+    }
+
+    if (filters.lastName) {
+      filteredData = filteredData.filter(
+        (employee) =>
+          employee.lastName.toLowerCase().includes(filters.lastName.toLowerCase())
       );
     }
 
@@ -40,6 +53,13 @@ function App() {
       filteredData = filteredData.filter(
         (employee) =>
           employee.function.toLowerCase().includes(filters.position.toLowerCase())
+      );
+    }
+
+    if (filters.experience) {
+      filteredData = filteredData.filter(
+        (employee) =>
+          employee.experience == filters.experience
       );
     }
 

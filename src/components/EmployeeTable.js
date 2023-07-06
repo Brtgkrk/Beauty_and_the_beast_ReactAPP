@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/EmployeeTable.css';
 
 const EmployeeTable = ({ employees, onSortChange, sortConfig }) => {
     return (
@@ -47,12 +48,12 @@ const EmployeeTable = ({ employees, onSortChange, sortConfig }) => {
                 {employees.length > 0 ? (
                     employees.map((employee) => (
                         <tr key={employee.id}>
-                            <td>{employee.id}</td>
-                            <td>{employee.firstName}</td>
-                            <td>{employee.lastName}</td>
-                            <td>{employee.dateOfBirth}</td>
-                            <td>{employee.function}</td>
-                            <td>{employee.experience}</td>
+                            <td className="wide-column-id">{employee.id}</td>
+                            <td className="wide-column">{employee.firstName}</td>
+                            <td className="wide-column">{employee.lastName}</td>
+                            <td className="wide-column-date">{employee.dateOfBirth}</td>
+                            <td className="wide-column">{employee.function}</td>
+                            <td className="wide-column-xp">{employee.experience}</td>
                         </tr>
                     ))
                 ) : (

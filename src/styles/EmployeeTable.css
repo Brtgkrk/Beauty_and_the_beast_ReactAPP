@@ -1,0 +1,19 @@
+th:hover {
+    cursor: pointer;
+}  
+
+.wide-column {
+    min-width: 140px;
+}
+
+.wide-column-id {
+    min-width: 6%;
+}
+
+.wide-column-date {
+    min-width: 200px;
+}
+
+.wide-column-xp {
+    min-width: 200px;
+}

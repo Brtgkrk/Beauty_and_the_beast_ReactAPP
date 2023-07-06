@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Pagination.css';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePageChange = (page) => {
@@ -9,16 +10,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     const pageNumbers = [];
     console.log(`Total pages: ${totalPages}`);
     for (let i = 1; i <= totalPages; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          className={i === currentPage ? 'active' : ''}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </button>
-      );
-    }
+        pageNumbers.push(
+          <button
+            key={i}
+            className={`page-number ${i === currentPage ? 'active' : ''}`}
+            onClick={() => handlePageChange(i)}
+            disabled={i === currentPage}
+          >
+            {i}
+          </button>
+        );
+      }
+      
 
     return pageNumbers;
   };
@@ -29,14 +32,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === 1}
         onClick={() => handlePageChange(currentPage - 1)}
       >
-        Prev
+        Poprzednia strona
       </button>
       {renderPageNumbers()}
       <button
         disabled={currentPage === totalPages}
         onClick={() => handlePageChange(currentPage + 1)}
       >
-        Next
+        Następna strona
       </button>
     </div>
   );
